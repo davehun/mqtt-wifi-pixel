@@ -1,0 +1,112 @@
+[
+  {
+    "id": "2d66a263.8f77ce",
+    "type": "mqtt-broker",
+    "z": "54f254a.f6b61ac",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "verifyservercert": true,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": null,
+    "willPayload": "",
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": null,
+    "birthPayload": ""
+  },
+  {
+    "id": "c92ada5d.ff0498",
+    "type": "mqtt out",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "/led",
+    "qos": "",
+    "retain": "",
+    "broker": "2d66a263.8f77ce",
+    "x": 532.5,
+    "y": 181,
+    "wires": []
+  },
+  {
+    "id": "e0de236.3d761e",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "1",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 376.5,
+    "y": 98,
+    "wires": [
+      [
+        "c92ada5d.ff0498"
+      ]
+    ]
+  },
+  {
+    "id": "b1a9146d.c844e8",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "2",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 339.5,
+    "y": 183,
+    "wires": [
+      [
+        "c92ada5d.ff0498"
+      ]
+    ]
+  },
+  {
+    "id": "fce88757.038e48",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "3",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 289.5,
+    "y": 280,
+    "wires": [
+      [
+        "c92ada5d.ff0498"
+      ]
+    ]
+  },
+  {
+    "id": "d5012234.0562f",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "0",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 374.5,
+    "y": 366,
+    "wires": [
+      [
+        "c92ada5d.ff0498"
+      ]
+    ]
+  }
+]
