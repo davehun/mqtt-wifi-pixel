@@ -1,6 +1,6 @@
-ap=""
-ap_pass=""
-mqtt_server=""
+ap="***REMOVED***"
+ap_pass="gweld***REMOVED***"
+mqtt_server="192.168.254.10"
 mqtt_port=1883
 mqtt_client_id="night light"
 mqtt_user_name="user"
