@@ -1,0 +1,269 @@
+[
+  {
+    "id": "2d66a263.8f77ce",
+    "type": "mqtt-broker",
+    "z": "54f254a.f6b61ac",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "verifyservercert": true,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": null,
+    "willPayload": "",
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": null,
+    "birthPayload": ""
+  },
+  {
+    "id": "8cc86f2c.f2662",
+    "type": "mqtt out",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "/led",
+    "qos": "",
+    "retain": "",
+    "broker": "2d66a263.8f77ce",
+    "x": 1114.5,
+    "y": 39,
+    "wires": []
+  },
+  {
+    "id": "77ec44ce.d6c2dc",
+    "type": "csv",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "sep": ",",
+    "hdrin": "",
+    "hdrout": "",
+    "multi": "one",
+    "ret": "\n",
+    "temp": "power,unused,total power, vrms,living_room,guest,iwan,porch,hall,iwan_wall",
+    "x": 370.5,
+    "y": 37,
+    "wires": [
+      [
+        "6c009920.d7c5d8"
+      ]
+    ]
+  },
+  {
+    "id": "979bc045.18bc2",
+    "type": "range",
+    "z": "54f254a.f6b61ac",
+    "minin": "0",
+    "maxin": "2000",
+    "minout": "0",
+    "maxout": "4095",
+    "action": "scale",
+    "round": true,
+    "name": "dial out",
+    "x": 681.5,
+    "y": 37,
+    "wires": [
+      [
+        "aa697b49.d22aa8"
+      ]
+    ]
+  },
+  {
+    "id": "6c009920.d7c5d8",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "power",
+    "func": "var  newMsg = { payload: msg.payload.power, topic: \"power\" };\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 528.5,
+    "y": 36,
+    "wires": [
+      [
+        "979bc045.18bc2"
+      ]
+    ]
+  },
+  {
+    "id": "c4eff663.208f38",
+    "type": "rbe",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "func": "rbe",
+    "gap": "",
+    "start": "",
+    "inout": "out",
+    "x": 956.5,
+    "y": 40,
+    "wires": [
+      [
+        "8cc86f2c.f2662"
+      ]
+    ]
+  },
+  {
+    "id": "6e82f251.b9770c",
+    "type": "mqtt out",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "/led",
+    "qos": "",
+    "retain": "",
+    "broker": "2d66a263.8f77ce",
+    "x": 555.5,
+    "y": 264,
+    "wires": []
+  },
+  {
+    "id": "9c224eec.2cfb2",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/dial/0/0/800",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 165.5,
+    "y": 184,
+    "wires": [
+      [
+        "6e82f251.b9770c"
+      ]
+    ]
+  },
+  {
+    "id": "b42fbf3d.5c497",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/mode/1",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 196.5,
+    "y": 270,
+    "wires": [
+      [
+        "6e82f251.b9770c"
+      ]
+    ]
+  },
+  {
+    "id": "3a57cbfb.019b94",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/background/60/60/60",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 186.5,
+    "y": 376,
+    "wires": [
+      [
+        "6e82f251.b9770c"
+      ]
+    ]
+  },
+  {
+    "id": "e67b4bd8.12f828",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/background/30/0/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 179,
+    "y": 461,
+    "wires": [
+      [
+        "6e82f251.b9770c"
+      ]
+    ]
+  },
+  {
+    "id": "e01a8ea2.ca177",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/background/0/60/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 166,
+    "y": 528,
+    "wires": [
+      [
+        "6e82f251.b9770c"
+      ]
+    ]
+  },
+  {
+    "id": "d6b060e.5ea4ba",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/background/60/60/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 184,
+    "y": 591,
+    "wires": [
+      [
+        "6e82f251.b9770c"
+      ]
+    ]
+  },
+  {
+    "id": "bdee88af.1ee7a8",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/dial/4000/0/800",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 184,
+    "y": 104,
+    "wires": [
+      [
+        "6e82f251.b9770c"
+      ]
+    ]
+  },
+  {
+    "id": "aa697b49.d22aa8",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "dial_me",
+    "func": "var  newMsg = { payload: \"/dial/0/0/\"  + msg.payload };\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 825,
+    "y": 38,
+    "wires": [
+      [
+        "c4eff663.208f38"
+      ]
+    ]
+  }
+]
