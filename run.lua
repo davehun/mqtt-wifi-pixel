@@ -126,7 +126,7 @@ function getColourVal(count,dialVal)
    end
 end
 
-tmr.alarm(3, 200, 1, function()
+tmr.alarm(3, 50, 1, function()
              tmr.stop(3)
              local lred=0
              local lblue=0
@@ -153,7 +153,7 @@ tmr.alarm(3, 200, 1, function()
              led = newled
              ws2812.writergb(led_pin, led)
 
-             if (count< led_count) then
+             if (count<= led_count) then
                 tmr.start(3)
              end
 
@@ -230,6 +230,7 @@ end
 
 function greenVal(led, position)
    return colourVal(led , position, 2)
+
 end
 
 function blueVal(led, position)
