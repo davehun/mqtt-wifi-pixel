@@ -1,0 +1,153 @@
+[
+  {
+    "birthPayload": "",
+    "birthRetain": null,
+    "birthQos": "0",
+    "birthTopic": "",
+    "willPayload": "",
+    "willRetain": null,
+    "willQos": "0",
+    "willTopic": "",
+    "cleansession": true,
+    "keepalive": "60",
+    "compatmode": true,
+    "verifyservercert": true,
+    "usetls": false,
+    "clientid": "",
+    "port": "1883",
+    "broker": "localhost",
+    "z": "54f254a.f6b61ac",
+    "type": "mqtt-broker",
+    "id": "2d66a263.8f77ce"
+  },
+  {
+    "wires": [],
+    "y": 788,
+    "x": 818.5,
+    "broker": "2d66a263.8f77ce",
+    "retain": "",
+    "qos": "",
+    "topic": "\/led",
+    "name": "",
+    "z": "54f254a.f6b61ac",
+    "type": "mqtt out",
+    "id": "8cc86f2c.f2662"
+  },
+  {
+    "wires": [
+      [
+        "aff2a9b8.8ee708"
+      ]
+    ],
+    "y": 786,
+    "x": 106,
+    "once": false,
+    "crontab": "",
+    "repeat": "4",
+    "payloadType": "num",
+    "payload": "13",
+    "topic": "",
+    "name": "pulse",
+    "z": "54f254a.f6b61ac",
+    "type": "inject",
+    "id": "d2ffd4ed.316608"
+  },
+  {
+    "wires": [
+      [
+        "18a5c9b0.3d4f36"
+      ]
+    ],
+    "y": 785,
+    "x": 310,
+    "noerr": 0,
+    "outputs": 1,
+    "func": "var myfoo = global.get(\"counter\")\nif (myfoo === undefined) \n{\n    myfoo = 0\n}\nmyfoo = myfoo + msg.payload    \nglobal.set(\"counter\",myfoo)\nvar newMsg = { payload:myfoo }\nreturn newMsg;",
+    "name": "counter",
+    "z": "54f254a.f6b61ac",
+    "type": "function",
+    "id": "aff2a9b8.8ee708"
+  },
+  {
+    "wires": [
+      [
+        "ecf8940c.173168"
+      ]
+    ],
+    "y": 953,
+    "x": 117,
+    "once": false,
+    "crontab": "",
+    "repeat": "",
+    "payloadType": "date",
+    "payload": "",
+    "topic": "",
+    "name": "",
+    "z": "54f254a.f6b61ac",
+    "type": "inject",
+    "id": "83a7239b.035a1"
+  },
+  {
+    "wires": [
+      []
+    ],
+    "y": 956,
+    "x": 308,
+    "noerr": 0,
+    "outputs": 1,
+    "func": "global.set(\"counter\",0)\n\nreturn msg;",
+    "name": "reset",
+    "z": "54f254a.f6b61ac",
+    "type": "function",
+    "id": "ecf8940c.173168"
+  },
+  {
+    "wires": [
+      [
+        "8cc86f2c.f2662"
+      ]
+    ],
+    "y": 789,
+    "x": 569,
+    "noerr": 0,
+    "outputs": 1,
+    "func": "if (msg.payload < 4096)\n{\n    var  newMsg = { payload: \"\/dial\/0\/0\/\"  + (4096 - msg.payload) };\n}\nelse\n{\n        var  newMsg = { payload: \"\/dial\/\" +  msg.payload + \"\/0\/0\" };\n}\nreturn newMsg;",
+    "name": "dial_me",
+    "z": "54f254a.f6b61ac",
+    "type": "function",
+    "id": "18a5c9b0.3d4f36"
+  },
+  {
+    "wires": [
+      [
+        "840b6d69.1bcee"
+      ]
+    ],
+    "y": 1043,
+    "x": 121,
+    "once": false,
+    "crontab": "",
+    "repeat": "",
+    "payloadType": "date",
+    "payload": "",
+    "topic": "",
+    "name": "",
+    "z": "54f254a.f6b61ac",
+    "type": "inject",
+    "id": "a8d1d94a.52f638"
+  },
+  {
+    "wires": [
+      []
+    ],
+    "y": 1034,
+    "x": 267,
+    "noerr": 0,
+    "outputs": 1,
+    "func": "global.set(\"counter\",4096)\n\nreturn msg;",
+    "name": "reset red",
+    "z": "54f254a.f6b61ac",
+    "type": "function",
+    "id": "840b6d69.1bcee"
+  }
+]
