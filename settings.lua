@@ -3,9 +3,9 @@ ap_pass=""
 mqtt_server=""
 mqtt_port=1883
 mqtt_client_id="night light"
-mqtt_user_name="user"
+mqtt_user_name=""
 mqtt_timeout=120
-mqtt_password="password"
+mqtt_password=""
 led_pin=2
 led_count=16
 --sparkle settings
