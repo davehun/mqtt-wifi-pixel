@@ -1,1 +1,443 @@
-[{"id":"8f71ebcb.c54688","type":"mqtt-broker","z":"ddc50ffd.f5a96","broker":"localhost","port":"1883","clientid":"","usetls":false,"verifyservercert":true,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willRetain":null,"willPayload":"","birthTopic":"","birthQos":"0","birthRetain":null,"birthPayload":""},{"id":"ab58e588.440ce8","type":"mqtt out","z":"ddc50ffd.f5a96","name":"","topic":"led","qos":"","retain":"","broker":"8f71ebcb.c54688","x":1039.5,"y":53,"wires":[]},{"id":"13e14dc2.395872","type":"csv","z":"ddc50ffd.f5a96","name":"","sep":",","hdrin":"","hdrout":"","multi":"one","ret":"\n","temp":"power,unused,total power, vrms,living_room,guest,iwan,porch,hall,iwan_wall","x":295.5,"y":51,"wires":[["3431b61d.8f208a"]]},{"id":"2f16a9ea.68d196","type":"range","z":"ddc50ffd.f5a96","minin":"0","maxin":"2000","minout":"0","maxout":"4095","action":"scale","round":true,"name":"dial out","x":606.5,"y":51,"wires":[["5229bf9f.36277"]]},{"id":"3431b61d.8f208a","type":"function","z":"ddc50ffd.f5a96","name":"power","func":"var  newMsg = { payload: msg.payload.power, topic: \"power\" };\nreturn newMsg;","outputs":1,"noerr":0,"x":453.5,"y":50,"wires":[["2f16a9ea.68d196"]]},{"id":"127d9b89.f170b4","type":"rbe","z":"ddc50ffd.f5a96","name":"","func":"rbe","gap":"","start":"","inout":"out","x":881.5,"y":54,"wires":[["ab58e588.440ce8"]]},{"id":"ccb3b449.69caf8","type":"mqtt out","z":"ddc50ffd.f5a96","name":"","topic":"led","qos":"","retain":"","broker":"8f71ebcb.c54688","x":396.5,"y":521,"wires":[]},{"id":"6e7df031.56fca","type":"inject","z":"ddc50ffd.f5a96","name":"","topic":"","payload":"/dial/0/0/800","payloadType":"str","repeat":"","crontab":"","once":false,"x":94.5,"y":329,"wires":[["ccb3b449.69caf8"]]},{"id":"73ecdcba.0441a4","type":"inject","z":"ddc50ffd.f5a96","name":"","topic":"","payload":"/mode/1","payloadType":"str","repeat":"","crontab":"","once":false,"x":125.5,"y":415,"wires":[["ccb3b449.69caf8"]]},{"id":"f8dda444.03a038","type":"inject","z":"ddc50ffd.f5a96","name":"white /background/60/60/60","topic":"","payload":"/background/60/60/60","payloadType":"str","repeat":"","crontab":"","once":false,"x":151.5,"y":522,"wires":[["ccb3b449.69caf8"]]},{"id":"2bd3f191.051f9e","type":"inject","z":"ddc50ffd.f5a96","name":"red /background/30/0/0","topic":"","payload":"/background/30/0/0","payloadType":"str","repeat":"","crontab":"","once":false,"x":143,"y":602,"wires":[["ccb3b449.69caf8"]]},{"id":"8ea093bb.ae39f","type":"inject","z":"ddc50ffd.f5a96","name":"green /background/0/60/0","topic":"","payload":"/background/0/60/0","payloadType":"str","repeat":"","crontab":"","once":false,"x":148,"y":668,"wires":[["ccb3b449.69caf8"]]},{"id":"37c54b80.37a894","type":"inject","z":"ddc50ffd.f5a96","name":"light green /background/60/60/0","topic":"","payload":"/background/60/60/0","payloadType":"str","repeat":"","crontab":"","once":false,"x":164,"y":735,"wires":[["ccb3b449.69caf8"]]},{"id":"ca0d96dd.826c28","type":"inject","z":"ddc50ffd.f5a96","name":"","topic":"","payload":"/dial/4000/0/800","payloadType":"str","repeat":"","crontab":"","once":false,"x":113,"y":249,"wires":[["ccb3b449.69caf8"]]},{"id":"5229bf9f.36277","type":"function","z":"ddc50ffd.f5a96","name":"dial_me","func":"var  newMsg = { payload: \"/dial/0/0/\"  + msg.payload };\nreturn newMsg;","outputs":1,"noerr":0,"x":750,"y":52,"wires":[["127d9b89.f170b4"]]},{"id":"ec196f89.0c28a","type":"mqtt in","z":"ddc50ffd.f5a96","name":"emon/emonpi/power1","topic":"emon/emonpi/power1","broker":"8f71ebcb.c54688","x":379,"y":129,"wires":[["dc6e94bd.ee80f8","2f16a9ea.68d196"]]},{"id":"dc6e94bd.ee80f8","type":"debug","z":"ddc50ffd.f5a96","name":"","active":true,"console":"false","complete":"false","x":697,"y":145,"wires":[]},{"id":"af48cd9c.847c4","type":"inject","z":"ddc50ffd.f5a96","name":"3000W","topic":"","payload":"3000","payloadType":"num","repeat":"","crontab":"","once":false,"x":485,"y":289,"wires":[["2f16a9ea.68d196"]]},{"id":"679233f.22dadcc","type":"inject","z":"ddc50ffd.f5a96","name":"7000W","topic":"","payload":"7000","payloadType":"num","repeat":"","crontab":"","once":false,"x":482,"y":239,"wires":[["2f16a9ea.68d196"]]},{"id":"3a7bb502.9f331a","type":"inject","z":"ddc50ffd.f5a96","name":"100W","topic":"","payload":"100","payloadType":"num","repeat":"","crontab":"","once":false,"x":489,"y":330,"wires":[["2f16a9ea.68d196"]]},{"id":"98bafb54.722fe8","type":"inject","z":"ddc50ffd.f5a96","name":"50W","topic":"","payload":"50","payloadType":"num","repeat":"","crontab":"","once":false,"x":490,"y":379,"wires":[["2f16a9ea.68d196"]]},{"id":"66056e6b.5a6bb","type":"comment","z":"ddc50ffd.f5a96","name":"Emoncms.org grid carbon API docs","info":"https://blog.openenergymonitor.org/2015/11/uk-grid-carbon-intensity/","x":797,"y":394,"wires":[]},{"id":"3183f787.3c1f38","type":"debug","z":"ddc50ffd.f5a96","name":"","active":true,"console":"false","complete":"false","x":1066,"y":522,"wires":[]},{"id":"1caae251.5ed23e","type":"inject","z":"ddc50ffd.f5a96","name":"poke every 15min","topic":"","payload":"","payloadType":"date","repeat":"900","crontab":"","once":true,"x":639,"y":465,"wires":[["91b3b533.d948f8"]]},{"id":"91b3b533.d948f8","type":"http request","z":"ddc50ffd.f5a96","name":"UK wind output 0-5000 GW","method":"GET","ret":"txt","url":"http://emoncms.org/feed/value.json?id=67088","x":883,"y":451,"wires":[["a30467d.eedcb98"]]},{"id":"a30467d.eedcb98","type":"json","z":"ddc50ffd.f5a96","name":"","x":873,"y":531,"wires":[["3183f787.3c1f38"]]}]
+[
+  {
+    "id": "8f71ebcb.c54688",
+    "type": "mqtt-broker",
+    "z": "ddc50ffd.f5a96",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "verifyservercert": true,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": null,
+    "willPayload": "",
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": null,
+    "birthPayload": ""
+  },
+  {
+    "id": "ab58e588.440ce8",
+    "type": "mqtt out",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "topic": "led",
+    "qos": "",
+    "retain": "",
+    "broker": "8f71ebcb.c54688",
+    "x": 1039.5,
+    "y": 53,
+    "wires": []
+  },
+  {
+    "id": "13e14dc2.395872",
+    "type": "csv",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "sep": ",",
+    "hdrin": "",
+    "hdrout": "",
+    "multi": "one",
+    "ret": "\n",
+    "temp": "power,unused,total power, vrms,living_room,guest,iwan,porch,hall,iwan_wall",
+    "x": 295.5,
+    "y": 51,
+    "wires": [
+      [
+        "3431b61d.8f208a"
+      ]
+    ]
+  },
+  {
+    "id": "2f16a9ea.68d196",
+    "type": "range",
+    "z": "ddc50ffd.f5a96",
+    "minin": "0",
+    "maxin": "2000",
+    "minout": "0",
+    "maxout": "4095",
+    "action": "scale",
+    "round": true,
+    "name": "dial out",
+    "x": 606.5,
+    "y": 51,
+    "wires": [
+      [
+        "5229bf9f.36277"
+      ]
+    ]
+  },
+  {
+    "id": "3431b61d.8f208a",
+    "type": "function",
+    "z": "ddc50ffd.f5a96",
+    "name": "power",
+    "func": "var  newMsg = { payload: msg.payload.power, topic: \"power\" };\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 453.5,
+    "y": 50,
+    "wires": [
+      [
+        "2f16a9ea.68d196"
+      ]
+    ]
+  },
+  {
+    "id": "127d9b89.f170b4",
+    "type": "rbe",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "func": "rbe",
+    "gap": "",
+    "start": "",
+    "inout": "out",
+    "x": 881.5,
+    "y": 54,
+    "wires": [
+      [
+        "ab58e588.440ce8"
+      ]
+    ]
+  },
+  {
+    "id": "ccb3b449.69caf8",
+    "type": "mqtt out",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "topic": "led",
+    "qos": "",
+    "retain": "",
+    "broker": "8f71ebcb.c54688",
+    "x": 396.5,
+    "y": 521,
+    "wires": []
+  },
+  {
+    "id": "6e7df031.56fca",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "topic": "",
+    "payload": "/dial/0/0/800",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 94.5,
+    "y": 329,
+    "wires": [
+      [
+        "ccb3b449.69caf8"
+      ]
+    ]
+  },
+  {
+    "id": "73ecdcba.0441a4",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "topic": "",
+    "payload": "/mode/1",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 125.5,
+    "y": 415,
+    "wires": [
+      [
+        "ccb3b449.69caf8"
+      ]
+    ]
+  },
+  {
+    "id": "f8dda444.03a038",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "white /background/60/60/60",
+    "topic": "",
+    "payload": "/background/60/60/60",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 151.5,
+    "y": 522,
+    "wires": [
+      [
+        "ccb3b449.69caf8"
+      ]
+    ]
+  },
+  {
+    "id": "2bd3f191.051f9e",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "red /background/30/0/0",
+    "topic": "",
+    "payload": "/background/30/0/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 143,
+    "y": 602,
+    "wires": [
+      [
+        "ccb3b449.69caf8"
+      ]
+    ]
+  },
+  {
+    "id": "8ea093bb.ae39f",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "green /background/0/60/0",
+    "topic": "",
+    "payload": "/background/0/60/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 148,
+    "y": 668,
+    "wires": [
+      [
+        "ccb3b449.69caf8"
+      ]
+    ]
+  },
+  {
+    "id": "37c54b80.37a894",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "light green /background/60/60/0",
+    "topic": "",
+    "payload": "/background/60/60/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 164,
+    "y": 735,
+    "wires": [
+      [
+        "ccb3b449.69caf8"
+      ]
+    ]
+  },
+  {
+    "id": "ca0d96dd.826c28",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "topic": "",
+    "payload": "/dial/4000/0/800",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 113,
+    "y": 249,
+    "wires": [
+      [
+        "ccb3b449.69caf8"
+      ]
+    ]
+  },
+  {
+    "id": "5229bf9f.36277",
+    "type": "function",
+    "z": "ddc50ffd.f5a96",
+    "name": "dial_me",
+    "func": "var  newMsg = { payload: \"/dial/0/0/\"  + msg.payload };\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 750,
+    "y": 52,
+    "wires": [
+      [
+        "127d9b89.f170b4"
+      ]
+    ]
+  },
+  {
+    "id": "ec196f89.0c28a",
+    "type": "mqtt in",
+    "z": "ddc50ffd.f5a96",
+    "name": "emon/emonpi/power1",
+    "topic": "emon/emonpi/power1",
+    "broker": "8f71ebcb.c54688",
+    "x": 379,
+    "y": 129,
+    "wires": [
+      [
+        "dc6e94bd.ee80f8",
+        "2f16a9ea.68d196"
+      ]
+    ]
+  },
+  {
+    "id": "dc6e94bd.ee80f8",
+    "type": "debug",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "false",
+    "x": 697,
+    "y": 145,
+    "wires": []
+  },
+  {
+    "id": "af48cd9c.847c4",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "3000W",
+    "topic": "",
+    "payload": "3000",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 485,
+    "y": 289,
+    "wires": [
+      [
+        "2f16a9ea.68d196"
+      ]
+    ]
+  },
+  {
+    "id": "679233f.22dadcc",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "7000W",
+    "topic": "",
+    "payload": "7000",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 482,
+    "y": 239,
+    "wires": [
+      [
+        "2f16a9ea.68d196"
+      ]
+    ]
+  },
+  {
+    "id": "3a7bb502.9f331a",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "100W",
+    "topic": "",
+    "payload": "100",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 489,
+    "y": 330,
+    "wires": [
+      [
+        "2f16a9ea.68d196"
+      ]
+    ]
+  },
+  {
+    "id": "98bafb54.722fe8",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "50W",
+    "topic": "",
+    "payload": "50",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 490,
+    "y": 379,
+    "wires": [
+      [
+        "2f16a9ea.68d196"
+      ]
+    ]
+  },
+  {
+    "id": "66056e6b.5a6bb",
+    "type": "comment",
+    "z": "ddc50ffd.f5a96",
+    "name": "Emoncms.org grid carbon API docs",
+    "info": "https://blog.openenergymonitor.org/2015/11/uk-grid-carbon-intensity/",
+    "x": 797,
+    "y": 394,
+    "wires": []
+  },
+  {
+    "id": "3183f787.3c1f38",
+    "type": "debug",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "false",
+    "x": 1066,
+    "y": 522,
+    "wires": []
+  },
+  {
+    "id": "1caae251.5ed23e",
+    "type": "inject",
+    "z": "ddc50ffd.f5a96",
+    "name": "poke every 15min",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "900",
+    "crontab": "",
+    "once": true,
+    "x": 639,
+    "y": 465,
+    "wires": [
+      [
+        "91b3b533.d948f8"
+      ]
+    ]
+  },
+  {
+    "id": "91b3b533.d948f8",
+    "type": "http request",
+    "z": "ddc50ffd.f5a96",
+    "name": "UK wind output 0-5000 GW",
+    "method": "GET",
+    "ret": "txt",
+    "url": "http://emoncms.org/feed/value.json?id=67088",
+    "x": 883,
+    "y": 451,
+    "wires": [
+      [
+        "a30467d.eedcb98"
+      ]
+    ]
+  },
+  {
+    "id": "a30467d.eedcb98",
+    "type": "json",
+    "z": "ddc50ffd.f5a96",
+    "name": "",
+    "x": 873,
+    "y": 531,
+    "wires": [
+      [
+        "3183f787.3c1f38"
+      ]
+    ]
+  }
+]
