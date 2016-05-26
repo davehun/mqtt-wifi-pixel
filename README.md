@@ -1,6 +1,6 @@
 #NightLight#
 
-This software runs on a wifipixel or a nodemcu with a neopixel ring. It provides 3 modes for a set of neopixels used to:
+This software runs on a [WifiPixel](https://github.com/Protoneer/WifiPixels) or a nodemcu with a neopixel ring. It provides 3 modes for a set of neopixels used to:
 
 * Simulate twinkling stars
 * Simulate a sunrise
@@ -8,7 +8,7 @@ This software runs on a wifipixel or a nodemcu with a neopixel ring. It provides
 
 ##Requirements##
 * [mqtt](http://mqtt.org/) server e.g. [mosquitto](http://mosquitto.org/)
-* either a wifipixel or a [nodemcu](http://nodemcu.com/index_en.html) and a [neopixel](https://www.adafruit.com/category/168)
+* either a [wifipixel](https://github.com/Protoneer/WifiPixels) or a [nodemcu](http://nodemcu.com/index_en.html) and a [neopixel](https://www.adafruit.com/category/168)
 
 ##Usage##
 There are 2 parts to getting the system running. Setting the hardware up and setting up the software.
