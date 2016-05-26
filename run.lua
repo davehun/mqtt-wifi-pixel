@@ -92,7 +92,7 @@ tmr.alarm(1,1000,1, function()
                 m:connect(mqtt_server, mqtt_port, 0, function(conn)
                              print("connected to mqtt")
 
-                             m:subscribe("/led",0, function(conn)
+                             m:subscribe("led",0, function(conn)
                                             print("subscribed")
                                             led = string.char(0,0,0):rep(16)
                                             value = gpio.HIGH
