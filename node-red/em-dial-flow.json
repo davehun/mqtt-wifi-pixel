@@ -1,8 +1,8 @@
 [
   {
-    "id": "8f71ebcb.c54688",
+    "id": "2d66a263.8f77ce",
     "type": "mqtt-broker",
-    "z": "ddc50ffd.f5a96",
+    "z": "54f254a.f6b61ac",
     "broker": "localhost",
     "port": "1883",
     "clientid": "",
@@ -21,381 +21,445 @@
     "birthPayload": ""
   },
   {
-    "id": "ab58e588.440ce8",
+    "id": "77a5d92e.4d5aa8",
+    "type": "mqtt-broker",
+    "z": "54f254a.f6b61ac",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "verifyservercert": true,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": null,
+    "willPayload": "",
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": null,
+    "birthPayload": ""
+  },
+  {
+    "id": "db9482d0.4fc18",
     "type": "mqtt out",
-    "z": "ddc50ffd.f5a96",
+    "z": "54f254a.f6b61ac",
     "name": "",
     "topic": "led",
     "qos": "",
     "retain": "",
-    "broker": "8f71ebcb.c54688",
-    "x": 1039.5,
-    "y": 53,
+    "broker": "77a5d92e.4d5aa8",
+    "x": 1100,
+    "y": 286,
     "wires": []
   },
   {
-    "id": "13e14dc2.395872",
-    "type": "csv",
-    "z": "ddc50ffd.f5a96",
+    "id": "8cc86f2c.f2662",
+    "type": "mqtt out",
+    "z": "54f254a.f6b61ac",
     "name": "",
-    "sep": ",",
-    "hdrin": "",
-    "hdrout": "",
-    "multi": "one",
-    "ret": "\n",
-    "temp": "power,unused,total power, vrms,living_room,guest,iwan,porch,hall,iwan_wall",
-    "x": 295.5,
-    "y": 51,
+    "topic": "/led",
+    "qos": "",
+    "retain": "",
+    "broker": "2d66a263.8f77ce",
+    "x": 818.5,
+    "y": 788,
+    "wires": []
+  },
+  {
+    "id": "d2ffd4ed.316608",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "pulse",
+    "topic": "",
+    "payload": "400",
+    "payloadType": "num",
+    "repeat": "4",
+    "crontab": "",
+    "once": false,
+    "x": 106,
+    "y": 786,
     "wires": [
       [
-        "3431b61d.8f208a"
+        "aff2a9b8.8ee708"
       ]
     ]
   },
   {
-    "id": "2f16a9ea.68d196",
+    "id": "aff2a9b8.8ee708",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "counter",
+    "func": "var myfoo = global.get(\"counter\")\nif (myfoo === undefined) \n{\n    myfoo = 0\n}\nmyfoo = myfoo + msg.payload    \nglobal.set(\"counter\",myfoo)\nvar newMsg = { payload:myfoo }\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 444,
+    "y": 874,
+    "wires": [
+      [
+        "18a5c9b0.3d4f36"
+      ]
+    ]
+  },
+  {
+    "id": "83a7239b.035a1",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 117,
+    "y": 953,
+    "wires": [
+      [
+        "ecf8940c.173168"
+      ]
+    ]
+  },
+  {
+    "id": "ecf8940c.173168",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "reset",
+    "func": "global.set(\"counter\",0)\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 308,
+    "y": 956,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "18a5c9b0.3d4f36",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "dial_me",
+    "func": "if (msg.payload < 4096)\n{\n    var  newMsg = { payload: \"/dial/0/0/\"  + (4096 - msg.payload) };\n}\nelse\n{\n        var  newMsg = { payload: \"/dial/\" +  msg.payload + \"/0/0\" };\n}\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 569,
+    "y": 789,
+    "wires": [
+      [
+        "8cc86f2c.f2662"
+      ]
+    ]
+  },
+  {
+    "id": "a8d1d94a.52f638",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 121,
+    "y": 1043,
+    "wires": [
+      [
+        "840b6d69.1bcee"
+      ]
+    ]
+  },
+  {
+    "id": "840b6d69.1bcee",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "reset red",
+    "func": "global.set(\"counter\",4096)\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 267,
+    "y": 1034,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "594e44de.5af0cc",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "Set Wind and fire backround",
+    "func": "\nwind =  global.get(\"wind\")\ncoal = global.get(\"coal\")\nnuclear = global.get(\"nuclear\")\ngas = global.get(\"gas\")\n\nif(wind === undefined)\n{\n    wind = 0\n}\nif (coal === undefined)\n{\n    coal =0\n}\nif (nuclear === undefined)\n{\n    nuclear =0\n}\nif (gas === undefined)\n{\n    gas = 0\n}\ncarbon = coal + gas\nvar newMsg  = { payload: \"/background/\" + carbon + \"/\" + wind + \"/\" + nuclear};\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1160.250015258789,
+    "y": 139.25000095367432,
+    "wires": [
+      [
+        "db9482d0.4fc18"
+      ]
+    ]
+  },
+  {
+    "id": "95ed2f8d.16c3b",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "set nuclear global",
+    "func": "global.set(\"nuclear\",msg.payload)\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 897,
+    "y": 218.2500057220459,
+    "wires": [
+      [
+        "594e44de.5af0cc"
+      ]
+    ]
+  },
+  {
+    "id": "9d9d7ebd.b90cb",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "set gas global",
+    "func": "global.set(\"gas\",msg.payload)\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 886,
+    "y": 172.50000286102295,
+    "wires": [
+      [
+        "594e44de.5af0cc"
+      ]
+    ]
+  },
+  {
+    "id": "c25aecdd.a3be6",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "set coal global",
+    "func": "global.set(\"coal\",msg.payload)\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 883.0000038146973,
+    "y": 122.50000190734863,
+    "wires": [
+      [
+        "594e44de.5af0cc"
+      ]
+    ]
+  },
+  {
+    "id": "3b8e342a.2509fc",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "set wind global",
+    "func": "global.set(\"wind\",msg.payload)\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 885.0000038146973,
+    "y": 74.50000095367432,
+    "wires": [
+      [
+        "594e44de.5af0cc"
+      ]
+    ]
+  },
+  {
+    "id": "91092e02.cee6a",
     "type": "range",
-    "z": "ddc50ffd.f5a96",
+    "z": "54f254a.f6b61ac",
     "minin": "0",
-    "maxin": "2000",
+    "maxin": "40000",
     "minout": "0",
-    "maxout": "4095",
+    "maxout": "255",
     "action": "scale",
     "round": true,
-    "name": "dial out",
-    "x": 606.5,
-    "y": 51,
-    "wires": [
-      [
-        "5229bf9f.36277"
-      ]
-    ]
-  },
-  {
-    "id": "3431b61d.8f208a",
-    "type": "function",
-    "z": "ddc50ffd.f5a96",
-    "name": "power",
-    "func": "var  newMsg = { payload: msg.payload.power, topic: \"power\" };\nreturn newMsg;",
-    "outputs": 1,
-    "noerr": 0,
-    "x": 453.5,
-    "y": 50,
-    "wires": [
-      [
-        "2f16a9ea.68d196"
-      ]
-    ]
-  },
-  {
-    "id": "127d9b89.f170b4",
-    "type": "rbe",
-    "z": "ddc50ffd.f5a96",
     "name": "",
-    "func": "rbe",
-    "gap": "",
-    "start": "",
-    "inout": "out",
-    "x": 881.5,
-    "y": 54,
+    "x": 731.25,
+    "y": 74,
     "wires": [
       [
-        "ab58e588.440ce8"
+        "3b8e342a.2509fc"
       ]
     ]
   },
   {
-    "id": "ccb3b449.69caf8",
-    "type": "mqtt out",
-    "z": "ddc50ffd.f5a96",
+    "id": "6361986a.dd8878",
+    "type": "range",
+    "z": "54f254a.f6b61ac",
+    "minin": "0",
+    "maxin": "5000",
+    "minout": "0",
+    "maxout": "128",
+    "action": "scale",
+    "round": true,
     "name": "",
-    "topic": "led",
-    "qos": "",
-    "retain": "",
-    "broker": "8f71ebcb.c54688",
-    "x": 396.5,
-    "y": 521,
-    "wires": []
+    "x": 730.5,
+    "y": 123.25000095367432,
+    "wires": [
+      [
+        "c25aecdd.a3be6"
+      ]
+    ]
   },
   {
-    "id": "6e7df031.56fca",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
+    "id": "d2473253.eb33a",
+    "type": "range",
+    "z": "54f254a.f6b61ac",
+    "minin": "0",
+    "maxin": "3500",
+    "minout": "0",
+    "maxout": "128",
+    "action": "scale",
+    "round": true,
     "name": "",
-    "topic": "",
-    "payload": "/dial/0/0/800",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 94.5,
-    "y": 329,
+    "x": 726,
+    "y": 170.75000190734863,
     "wires": [
       [
-        "ccb3b449.69caf8"
+        "9d9d7ebd.b90cb"
       ]
     ]
   },
   {
-    "id": "73ecdcba.0441a4",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
+    "id": "9b743359.76369",
+    "type": "range",
+    "z": "54f254a.f6b61ac",
+    "minin": "0",
+    "maxin": "40000",
+    "minout": "0",
+    "maxout": "255",
+    "action": "scale",
+    "round": true,
     "name": "",
-    "topic": "",
-    "payload": "/mode/1",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 125.5,
-    "y": 415,
+    "x": 728.75,
+    "y": 216.00000381469727,
     "wires": [
       [
-        "ccb3b449.69caf8"
+        "95ed2f8d.16c3b"
       ]
     ]
   },
   {
-    "id": "f8dda444.03a038",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
-    "name": "white /background/60/60/60",
-    "topic": "",
-    "payload": "/background/60/60/60",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 151.5,
-    "y": 522,
-    "wires": [
-      [
-        "ccb3b449.69caf8"
-      ]
-    ]
-  },
-  {
-    "id": "2bd3f191.051f9e",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
-    "name": "red /background/30/0/0",
-    "topic": "",
-    "payload": "/background/30/0/0",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 143,
-    "y": 602,
-    "wires": [
-      [
-        "ccb3b449.69caf8"
-      ]
-    ]
-  },
-  {
-    "id": "8ea093bb.ae39f",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
-    "name": "green /background/0/60/0",
-    "topic": "",
-    "payload": "/background/0/60/0",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 148,
-    "y": 668,
-    "wires": [
-      [
-        "ccb3b449.69caf8"
-      ]
-    ]
-  },
-  {
-    "id": "37c54b80.37a894",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
-    "name": "light green /background/60/60/0",
-    "topic": "",
-    "payload": "/background/60/60/0",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 164,
-    "y": 735,
-    "wires": [
-      [
-        "ccb3b449.69caf8"
-      ]
-    ]
-  },
-  {
-    "id": "ca0d96dd.826c28",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
+    "id": "9a8a5115.63764",
+    "type": "json",
+    "z": "54f254a.f6b61ac",
     "name": "",
-    "topic": "",
-    "payload": "/dial/4000/0/800",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 113,
-    "y": 249,
+    "x": 603.75,
+    "y": 214.00000476837158,
     "wires": [
       [
-        "ccb3b449.69caf8"
+        "9b743359.76369"
       ]
     ]
   },
   {
-    "id": "5229bf9f.36277",
-    "type": "function",
-    "z": "ddc50ffd.f5a96",
-    "name": "dial_me",
-    "func": "var  newMsg = { payload: \"/dial/0/0/\"  + msg.payload };\nreturn newMsg;",
-    "outputs": 1,
-    "noerr": 0,
-    "x": 750,
-    "y": 52,
-    "wires": [
-      [
-        "127d9b89.f170b4"
-      ]
-    ]
-  },
-  {
-    "id": "ec196f89.0c28a",
-    "type": "mqtt in",
-    "z": "ddc50ffd.f5a96",
-    "name": "emon/emonpi/power1",
-    "topic": "emon/emonpi/power1",
-    "broker": "8f71ebcb.c54688",
-    "x": 379,
-    "y": 129,
-    "wires": [
-      [
-        "dc6e94bd.ee80f8",
-        "2f16a9ea.68d196"
-      ]
-    ]
-  },
-  {
-    "id": "dc6e94bd.ee80f8",
-    "type": "debug",
-    "z": "ddc50ffd.f5a96",
+    "id": "4ec94780.97b318",
+    "type": "json",
+    "z": "54f254a.f6b61ac",
     "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "false",
-    "x": 697,
-    "y": 145,
-    "wires": []
-  },
-  {
-    "id": "af48cd9c.847c4",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
-    "name": "3000W",
-    "topic": "",
-    "payload": "3000",
-    "payloadType": "num",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 485,
-    "y": 289,
+    "x": 601,
+    "y": 170.75000190734863,
     "wires": [
       [
-        "2f16a9ea.68d196"
+        "d2473253.eb33a"
       ]
     ]
   },
   {
-    "id": "679233f.22dadcc",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
-    "name": "7000W",
-    "topic": "",
-    "payload": "7000",
-    "payloadType": "num",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 482,
-    "y": 239,
-    "wires": [
-      [
-        "2f16a9ea.68d196"
-      ]
-    ]
-  },
-  {
-    "id": "3a7bb502.9f331a",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
-    "name": "100W",
-    "topic": "",
-    "payload": "100",
-    "payloadType": "num",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 489,
-    "y": 330,
-    "wires": [
-      [
-        "2f16a9ea.68d196"
-      ]
-    ]
-  },
-  {
-    "id": "98bafb54.722fe8",
-    "type": "inject",
-    "z": "ddc50ffd.f5a96",
-    "name": "50W",
-    "topic": "",
-    "payload": "50",
-    "payloadType": "num",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 490,
-    "y": 379,
-    "wires": [
-      [
-        "2f16a9ea.68d196"
-      ]
-    ]
-  },
-  {
-    "id": "66056e6b.5a6bb",
-    "type": "comment",
-    "z": "ddc50ffd.f5a96",
-    "name": "Emoncms.org grid carbon API docs",
-    "info": "https://blog.openenergymonitor.org/2015/11/uk-grid-carbon-intensity/",
-    "x": 797,
-    "y": 394,
-    "wires": []
-  },
-  {
-    "id": "3183f787.3c1f38",
-    "type": "debug",
-    "z": "ddc50ffd.f5a96",
+    "id": "2c3b8236.d3736e",
+    "type": "json",
+    "z": "54f254a.f6b61ac",
     "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "false",
-    "x": 1066,
-    "y": 522,
-    "wires": []
+    "x": 604.25,
+    "y": 124.50000095367432,
+    "wires": [
+      [
+        "6361986a.dd8878"
+      ]
+    ]
   },
   {
-    "id": "1caae251.5ed23e",
+    "id": "9fff0fc9.5fc48",
+    "type": "json",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "x": 609.75,
+    "y": 78.75,
+    "wires": [
+      [
+        "91092e02.cee6a"
+      ]
+    ]
+  },
+  {
+    "id": "8e3866b7.383c88",
+    "type": "http request",
+    "z": "54f254a.f6b61ac",
+    "name": "UK wind output 0-5000 GW",
+    "method": "GET",
+    "ret": "txt",
+    "url": "http://emoncms.org/feed/value.json?id=67088",
+    "x": 398.5,
+    "y": 86.24999904632568,
+    "wires": [
+      [
+        "9fff0fc9.5fc48"
+      ]
+    ]
+  },
+  {
+    "id": "c7c31d28.f9831",
+    "type": "http request",
+    "z": "54f254a.f6b61ac",
+    "name": "UK Coal output 0-5000 GW",
+    "method": "GET",
+    "ret": "txt",
+    "url": "http://emoncms.org/feed/value.json?id=97695",
+    "x": 400.49998474121094,
+    "y": 124.99995708465576,
+    "wires": [
+      [
+        "2c3b8236.d3736e"
+      ]
+    ]
+  },
+  {
+    "id": "97c182de.abc69",
+    "type": "http request",
+    "z": "54f254a.f6b61ac",
+    "name": "UK Gas output 0-5000 GW",
+    "method": "GET",
+    "ret": "txt",
+    "url": "http://emoncms.org/feed/value.json?id=97695",
+    "x": 398.5,
+    "y": 163.75000286102295,
+    "wires": [
+      [
+        "4ec94780.97b318"
+      ]
+    ]
+  },
+  {
+    "id": "67c765c4.7f331c",
+    "type": "http request",
+    "z": "54f254a.f6b61ac",
+    "name": "UK Nuclear output 0-5000 GW",
+    "method": "GET",
+    "ret": "txt",
+    "url": "http://emoncms.org/feed/value.json?id=97697",
+    "x": 398,
+    "y": 212.25000381469727,
+    "wires": [
+      [
+        "9a8a5115.63764"
+      ]
+    ]
+  },
+  {
+    "id": "462988d7.eaf838",
     "type": "inject",
-    "z": "ddc50ffd.f5a96",
+    "z": "54f254a.f6b61ac",
     "name": "poke every 15min",
     "topic": "",
     "payload": "",
@@ -403,41 +467,362 @@
     "repeat": "900",
     "crontab": "",
     "once": true,
-    "x": 639,
-    "y": 465,
+    "x": 121,
+    "y": 225.25000381469727,
     "wires": [
       [
-        "91b3b533.d948f8"
+        "8e3866b7.383c88",
+        "c7c31d28.f9831",
+        "67c765c4.7f331c",
+        "97c182de.abc69"
       ]
     ]
   },
   {
-    "id": "91b3b533.d948f8",
-    "type": "http request",
-    "z": "ddc50ffd.f5a96",
-    "name": "UK wind output 0-5000 GW",
-    "method": "GET",
-    "ret": "txt",
-    "url": "http://emoncms.org/feed/value.json?id=67088",
-    "x": 883,
-    "y": 451,
-    "wires": [
-      [
-        "a30467d.eedcb98"
-      ]
-    ]
-  },
-  {
-    "id": "a30467d.eedcb98",
-    "type": "json",
-    "z": "ddc50ffd.f5a96",
+    "id": "eb9e0a8.4e54ff8",
+    "type": "csv",
+    "z": "54f254a.f6b61ac",
     "name": "",
-    "x": 873,
-    "y": 531,
+    "sep": ",",
+    "hdrin": "",
+    "hdrout": "",
+    "multi": "one",
+    "ret": "\n",
+    "temp": "power,unused,total power, vrms,living_room,guest,iwan,porch,hall,iwan_wall",
+    "x": 276,
+    "y": 286,
     "wires": [
       [
-        "3183f787.3c1f38"
+        "a07764a.2908c98"
       ]
     ]
+  },
+  {
+    "id": "a98e4670.cfac48",
+    "type": "range",
+    "z": "54f254a.f6b61ac",
+    "minin": "0",
+    "maxin": "2000",
+    "minout": "0",
+    "maxout": "4095",
+    "action": "scale",
+    "round": true,
+    "name": "dial out",
+    "x": 587,
+    "y": 286,
+    "wires": [
+      [
+        "d39858d1.3d2978"
+      ]
+    ]
+  },
+  {
+    "id": "a07764a.2908c98",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "power",
+    "func": "var  newMsg = { payload: msg.payload.power, topic: \"power\" };\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 434,
+    "y": 285,
+    "wires": [
+      [
+        "a98e4670.cfac48"
+      ]
+    ]
+  },
+  {
+    "id": "38a54fdc.853ef",
+    "type": "rbe",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "func": "rbe",
+    "gap": "",
+    "start": "",
+    "inout": "out",
+    "x": 862,
+    "y": 289,
+    "wires": [
+      [
+        "db9482d0.4fc18"
+      ]
+    ]
+  },
+  {
+    "id": "5962b75b.54a9d8",
+    "type": "mqtt out",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "led",
+    "qos": "",
+    "retain": "",
+    "broker": "77a5d92e.4d5aa8",
+    "x": 377,
+    "y": 756,
+    "wires": []
+  },
+  {
+    "id": "d29f0b81.09cbf8",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/dial/0/0/800",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 75,
+    "y": 564,
+    "wires": [
+      [
+        "5962b75b.54a9d8"
+      ]
+    ]
+  },
+  {
+    "id": "eac89def.5eed7",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/mode/1",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 106,
+    "y": 650,
+    "wires": [
+      [
+        "5962b75b.54a9d8"
+      ]
+    ]
+  },
+  {
+    "id": "560f5ace.4386a4",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "white /background/60/60/60",
+    "topic": "",
+    "payload": "/background/60/60/60",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 132,
+    "y": 757,
+    "wires": [
+      [
+        "5962b75b.54a9d8"
+      ]
+    ]
+  },
+  {
+    "id": "67d4c036.6f32",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "red /background/30/0/0",
+    "topic": "",
+    "payload": "/background/30/0/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 123.5,
+    "y": 837,
+    "wires": [
+      [
+        "5962b75b.54a9d8"
+      ]
+    ]
+  },
+  {
+    "id": "be659b02.9ed5a8",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "green /background/0/60/0",
+    "topic": "",
+    "payload": "/background/0/60/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 128.5,
+    "y": 903,
+    "wires": [
+      [
+        "5962b75b.54a9d8"
+      ]
+    ]
+  },
+  {
+    "id": "2a700c2e.52f044",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "light green /background/60/60/0",
+    "topic": "",
+    "payload": "/background/60/60/0",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 144.5,
+    "y": 970,
+    "wires": [
+      [
+        "5962b75b.54a9d8"
+      ]
+    ]
+  },
+  {
+    "id": "f0e6b579.197ae8",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "topic": "",
+    "payload": "/dial/4000/0/800",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 93.5,
+    "y": 484,
+    "wires": [
+      [
+        "5962b75b.54a9d8"
+      ]
+    ]
+  },
+  {
+    "id": "d39858d1.3d2978",
+    "type": "function",
+    "z": "54f254a.f6b61ac",
+    "name": "dial_me",
+    "func": "var  newMsg = { payload: \"/dial/0/0/\"  + msg.payload };\nreturn newMsg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 730.5,
+    "y": 287,
+    "wires": [
+      [
+        "38a54fdc.853ef"
+      ]
+    ]
+  },
+  {
+    "id": "a20cf8ed.17fcf8",
+    "type": "mqtt in",
+    "z": "54f254a.f6b61ac",
+    "name": "emon/emonpi/power1",
+    "topic": "emon/emonpi/power1",
+    "broker": "77a5d92e.4d5aa8",
+    "x": 359.5,
+    "y": 364,
+    "wires": [
+      [
+        "689f926b.9fea8c",
+        "a98e4670.cfac48"
+      ]
+    ]
+  },
+  {
+    "id": "689f926b.9fea8c",
+    "type": "debug",
+    "z": "54f254a.f6b61ac",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "false",
+    "x": 677.5,
+    "y": 380,
+    "wires": []
+  },
+  {
+    "id": "407b5a35.539a74",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "3000W",
+    "topic": "",
+    "payload": "3000",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 465.5,
+    "y": 524,
+    "wires": [
+      [
+        "a98e4670.cfac48"
+      ]
+    ]
+  },
+  {
+    "id": "222bdd9c.63f9b2",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "7000W",
+    "topic": "",
+    "payload": "7000",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 462.5,
+    "y": 474,
+    "wires": [
+      [
+        "a98e4670.cfac48"
+      ]
+    ]
+  },
+  {
+    "id": "b65a3cc.705dac",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "100W",
+    "topic": "",
+    "payload": "100",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 469.5,
+    "y": 565,
+    "wires": [
+      [
+        "a98e4670.cfac48"
+      ]
+    ]
+  },
+  {
+    "id": "1695281f.a15da8",
+    "type": "inject",
+    "z": "54f254a.f6b61ac",
+    "name": "50W",
+    "topic": "",
+    "payload": "50",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 470.5,
+    "y": 614,
+    "wires": [
+      [
+        "a98e4670.cfac48"
+      ]
+    ]
+  },
+  {
+    "id": "f82756de.3025d8",
+    "type": "comment",
+    "z": "54f254a.f6b61ac",
+    "name": "Emoncms.org grid carbon API docs",
+    "info": "https://blog.openenergymonitor.org/2015/11/uk-grid-carbon-intensity/",
+    "x": 777.5,
+    "y": 629,
+    "wires": []
   }
 ]
