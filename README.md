@@ -78,11 +78,12 @@ Upload each file  using [nodemcu-tool](https://github.com/AndiDittrich/NodeMCU-T
 
 ###MQTT###
 The device should now boot and connect to the MQTT server. You will know this is successful when the on board LED goes blank. Boot time takes a while as there is the option to skip the automatic boot from a terminal.
-To set the mode post an integer to the topic.
-mode is set via a post /led with a numeric mode
+To set the mode publish an integer to the pixels MQTT topic (default `led`).
+
+Mode is set via a post to `led` topic with a numeric mode:
 
 * 0 Turn all pixels off
 * 1 Sunrise mode starts. Starts off black and gradually ramps up to full power yellow
 * 2 Twinkle mode.
 
-A [node-red](http://nodered.org/) example flow is shown in the node-red folder.
+See example [node-red](http://nodered.org/) flows in the node-red folder for demo opperation. 
