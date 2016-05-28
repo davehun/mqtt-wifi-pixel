@@ -1,4 +1,4 @@
-#NightLight#
+#mqtt-wifi-pixel#
 
 This software runs on a [WifiPixel](https://github.com/Protoneer/WifiPixels) or a nodemcu with a neopixel ring. It provides 3 modes for a set of neopixels used to:
 
