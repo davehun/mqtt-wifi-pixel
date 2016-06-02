@@ -59,7 +59,7 @@
     "type": "mqtt out",
     "z": "54f254a.f6b61ac",
     "name": "",
-    "topic": "/led",
+    "topic": "led",
     "qos": "",
     "retain": "",
     "broker": "2d66a263.8f77ce",
